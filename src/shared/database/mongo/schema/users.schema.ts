@@ -1,9 +1,13 @@
 /* eslint-disable prettier/prettier */
 import {Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { UserStatus } from "src/common/enums/user.enum";
+import { Document } from 'mongoose';
+
+export type UserDocument = User & Document;
+
 
 @Schema({ timestamps: true })
-export class User {
+export class User extends Document {
     @Prop({type: String, required: true})
     name: string;
 
@@ -15,6 +19,7 @@ export class User {
 
     @Prop({type: String, enum: UserStatus,  default: UserStatus.ACTIVE})
     status: UserStatus;
+    username: any;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
